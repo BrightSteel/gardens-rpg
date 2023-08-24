@@ -10,4 +10,4 @@ Each class contains:
 These BladeBringers will be playable on the Gardens MC Server: play.gardensmc.com
 
 # Licensing
-All Rights Reserved to Gardens MC
+All Rights Reserved to Gardens MC (https://gardensmc.com)
