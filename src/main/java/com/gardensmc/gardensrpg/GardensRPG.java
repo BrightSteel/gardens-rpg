@@ -1,6 +1,7 @@
 package com.gardensmc.gardensrpg;
 
 import com.gardensmc.gardensrpg.bladebringers.BladeBringerHandler;
+import com.gardensmc.gardensrpg.cmd.Commands;
 import com.gardensmc.gardensrpg.database.MySQLConnector;
 import com.gardensmc.gardensrpg.database.MySQLPreparation;
 import com.gardensmc.gardensrpg.listener.PassiveAbilitiesListener;
@@ -20,5 +21,7 @@ public class GardensRPG extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new PassiveAbilitiesListener(), this);
         // prepare MySQL Database
         mySQLPreparation.executePrepareStatements();
+        // register commands
+        Commands.registerCommands();
     }
 }
