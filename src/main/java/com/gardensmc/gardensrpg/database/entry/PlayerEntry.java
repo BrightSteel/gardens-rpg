@@ -17,8 +17,7 @@ public class PlayerEntry extends MySQLEntry {
     private int health, mana, power;
     private double speed, damage, defense;
 
-    public PlayerEntry(String bladeBringerName, BladeBringer bladeBringer) {
-        AttributeGroup baseAttributes = bladeBringer.getBaseAttributes();
+    public PlayerEntry(String bladeBringerName, AttributeGroup baseAttributes) {
         this.bladeBringer = bladeBringerName;
         this.health = baseAttributes.getHealth();
         this.mana = baseAttributes.getMana();

@@ -5,9 +5,7 @@ import org.bukkit.command.CommandExecutor;
 
 import java.util.*;
 
-import static com.gardensmc.gardensrpg.GardensRPG.plugin;
-
-public class Commands {
+public class CommandHandler {
 
     private static final HashMap<String, CommandExecutor> commands = new HashMap<>();
 

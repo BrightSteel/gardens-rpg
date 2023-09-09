@@ -34,6 +34,7 @@ public class BladeBringerMenu extends Menu {
                     entry.getKey()
             ));
         }
+        gui.addElement(group);
     }
 
     private boolean selectBladeBringer(String bladeBringerName) {

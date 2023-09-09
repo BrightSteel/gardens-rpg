@@ -38,7 +38,7 @@ public class BladeBringerHandler {
         return CompletableFuture.supplyAsync(
                 () -> Tables.playerTable.setOrCreatePlayerEntry(
                         player.getUniqueId().toString(),
-                        new PlayerEntry(bladeBringerName, bladeBringer)
+                        new PlayerEntry(bladeBringerName, bladeBringer.getBaseAttributes())
                 )).get();
     }
 
