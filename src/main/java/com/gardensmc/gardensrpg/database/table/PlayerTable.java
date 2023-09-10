@@ -3,7 +3,6 @@ package com.gardensmc.gardensrpg.database.table;
 import com.gardensmc.gardensrpg.GardensRPG;
 import com.gardensmc.gardensrpg.database.entry.PlayerEntry;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 

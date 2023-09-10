@@ -6,7 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 public class PlayerListener implements Listener {
@@ -15,24 +14,19 @@ public class PlayerListener implements Listener {
     public void onRightClick(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (e.getHand() == EquipmentSlot.HAND && holdingBlade(e.getPlayer())) {
-                GardensRPG.castActiveAbilityHandler.toggleAbility(e.getPlayer());
+                GardensRPG.castActiveAbilityHandler.castActive(e.getPlayer());
             }
         }
     }
 
-    @EventHandler
-    public void onLeftClick(PlayerInteractEvent e) {
-        if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
-            if (e.getHand() == EquipmentSlot.HAND && holdingBlade(e.getPlayer())) {
-                GardensRPG.castActiveAbilityHandler.castIfPrimed(e.getPlayer());
-            }
-        }
-    }
-
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent e) {
-        GardensRPG.castActiveAbilityHandler.removeStoredPlayer(e.getPlayer().getUniqueId());
-    }
+//    @EventHandler
+//    public void onLeftClick(PlayerInteractEvent e) {
+//        if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+//            if (e.getHand() == EquipmentSlot.HAND && holdingBlade(e.getPlayer())) {
+//                GardensRPG.castActiveAbilityHandler.castActive(e.getPlayer());
+//            }
+//        }
+//    }
 
     private boolean holdingBlade(Player player) {
         return player.getInventory().getItemInMainHand().getType().toString().contains("SWORD");

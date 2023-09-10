@@ -35,11 +35,15 @@ public class BladeBringerHandler {
             GardensRPG.plugin.getLogger().info("Failed to find blade bringer: " + bladeBringerName);
             return false;
         }
-        return CompletableFuture.supplyAsync(
+        boolean success = CompletableFuture.supplyAsync(
                 () -> Tables.playerTable.setOrCreatePlayerEntry(
                         player.getUniqueId().toString(),
                         new PlayerEntry(bladeBringerName, bladeBringer.getBaseAttributes())
                 )).get();
+        if (success) {
+            GardensRPG.playerEntryCache.remove(player.getUniqueId());
+        }
+        return success;
     }
 
     private void createBladeBringers() {

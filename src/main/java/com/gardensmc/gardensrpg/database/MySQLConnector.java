@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
+@SuppressWarnings("DuplicatedCode")
 public class MySQLConnector {
 
     public HikariConfig hikariConfig = new HikariConfig();
@@ -92,6 +93,4 @@ public class MySQLConnector {
         connection.close();
         return collection;
     }
-
-
 }

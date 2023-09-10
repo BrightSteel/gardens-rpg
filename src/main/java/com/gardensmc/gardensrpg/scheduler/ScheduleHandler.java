@@ -1,5 +1,7 @@
 package com.gardensmc.gardensrpg.scheduler;
 
+import com.gardensmc.gardensrpg.scheduler.schedules.AbilityCooldownsSchedule;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,5 +18,6 @@ public class ScheduleHandler {
 
     private void createSchedules() {
         new AbilityCooldownsSchedule();
+//        new SpawnActiveParticlesSchedule();
     }
 }
