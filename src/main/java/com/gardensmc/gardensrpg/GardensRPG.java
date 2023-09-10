@@ -9,6 +9,8 @@ import com.gardensmc.gardensrpg.database.MySQLPreparation;
 import com.gardensmc.gardensrpg.database.table.Tables;
 import com.gardensmc.gardensrpg.listener.PassiveAbilitiesListener;
 import com.gardensmc.gardensrpg.listener.PlayerListener;
+import com.gardensmc.gardensrpg.placeholders.RPGExpansion;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class GardensRPG extends JavaPlugin {
@@ -45,5 +47,9 @@ public class GardensRPG extends JavaPlugin {
         mySQLPreparation.executePrepareStatements();
         // register commands
         CommandHandler.registerCommands();
+        // register PAPI expansion
+        if (Bukkit.getPluginManager().getPlugin("PlaceHolderAPI") != null) {
+            new RPGExpansion().register();
+        }
     }
 }

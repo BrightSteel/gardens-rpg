@@ -3,6 +3,8 @@ version: 1.0.0
 author: Bright_Steel
 main: com.gardensmc.gardensrpg.GardensRPG
 api-version: 1.19
+softdepend:
+  - PlaceholderAPI
 commands:
   bladebringer:
     description: Open bladebringers selection menu
