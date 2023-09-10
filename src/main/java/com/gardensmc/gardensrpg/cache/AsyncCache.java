@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class AsyncCache<K, V> {
 
-    private final AsyncLoadingCache<K, V> cache;
+    protected final AsyncLoadingCache<K, V> cache;
 
     public AsyncCache() {
         cache = Caffeine.newBuilder()

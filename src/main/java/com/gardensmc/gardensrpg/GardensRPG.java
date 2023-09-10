@@ -2,6 +2,7 @@ package com.gardensmc.gardensrpg;
 
 import com.gardensmc.gardensrpg.ability.CastActiveAbilityHandler;
 import com.gardensmc.gardensrpg.bladebringers.BladeBringerHandler;
+import com.gardensmc.gardensrpg.cache.PlayerCooldownsCache;
 import com.gardensmc.gardensrpg.cache.PlayerEntryCache;
 import com.gardensmc.gardensrpg.cmd.CommandHandler;
 import com.gardensmc.gardensrpg.database.MySQLConnector;
@@ -10,6 +11,7 @@ import com.gardensmc.gardensrpg.database.table.Tables;
 import com.gardensmc.gardensrpg.listener.PassiveAbilitiesListener;
 import com.gardensmc.gardensrpg.listener.PlayerListener;
 import com.gardensmc.gardensrpg.placeholders.RPGExpansion;
+import com.gardensmc.gardensrpg.scheduler.ScheduleHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,6 +25,7 @@ public class GardensRPG extends JavaPlugin {
 
     // caches
     public static PlayerEntryCache playerEntryCache;
+    public static PlayerCooldownsCache playerCooldownsCache;
 
     @Override
     public void onEnable() {
@@ -34,6 +37,7 @@ public class GardensRPG extends JavaPlugin {
 
         // prepare caches
         playerEntryCache = new PlayerEntryCache();
+        playerCooldownsCache = new PlayerCooldownsCache();
 
         // prepare handlers
         bladeBringerHandler = new BladeBringerHandler();
@@ -51,5 +55,8 @@ public class GardensRPG extends JavaPlugin {
         if (Bukkit.getPluginManager().getPlugin("PlaceHolderAPI") != null) {
             new RPGExpansion().register();
         }
+
+        // schedule tasks
+        new ScheduleHandler().scheduleAll();
     }
 }

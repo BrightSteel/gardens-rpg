@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 public class PlayerListener implements Listener {
@@ -26,6 +27,11 @@ public class PlayerListener implements Listener {
                 GardensRPG.castActiveAbilityHandler.castIfPrimed(e.getPlayer());
             }
         }
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent e) {
+        GardensRPG.castActiveAbilityHandler.removeStoredPlayer(e.getPlayer().getUniqueId());
     }
 
     private boolean holdingBlade(Player player) {
