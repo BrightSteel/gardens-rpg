@@ -5,7 +5,7 @@ import com.gardensmc.gardensrpg.ability.types.Cast;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class BlinkStrikeAbility extends Ability implements Cast {
+public class BlinkAbility extends Ability implements Cast {
 
     private static final int BLINK_DISTANCE = 4;
 
@@ -19,6 +19,6 @@ public class BlinkStrikeAbility extends Ability implements Cast {
 
     @Override
     public int getCoolDown() {
-        return 20;
+        return 5;
     }
 }

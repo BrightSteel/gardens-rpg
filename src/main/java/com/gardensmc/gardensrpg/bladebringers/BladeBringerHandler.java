@@ -46,10 +46,18 @@ public class BladeBringerHandler {
         bladeBringersMap.put(
                 "SwiftBlade",
                 new BladeBringer(
-                    new AttributeGroup(16, 20, 20, 1.6, 2.6, 0.05),
-                    new AttributeGroup(23, 25, 25, 2.4, 3.4, 0.20),
-                    Abilities.evasiveManeuversAbility,
-                    Abilities.blinkStrikeAbility
-        ));
+                        new AttributeGroup(16, 20, 20, 1.6, 2.6, 0.05),
+                        new AttributeGroup(23, 25, 25, 2.4, 3.4, 0.20),
+                        Abilities.evasiveManeuversAbility,
+                        Abilities.blinkStrikeAbility
+                ));
+        bladeBringersMap.put(
+                "StormCaller",
+                new BladeBringer(
+                        new AttributeGroup(18, 20, 20, 1.2, 1.8, 0.10),
+                        new AttributeGroup(25, 25, 25, 2.0, 2.6, 0.25),
+                        Abilities.shockAbility,
+                        Abilities.thunderStormAbility
+                ));
     }
 }

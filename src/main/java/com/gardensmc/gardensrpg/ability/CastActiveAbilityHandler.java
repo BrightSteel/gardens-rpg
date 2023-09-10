@@ -6,6 +6,7 @@ import com.gardensmc.gardensrpg.ability.types.AbilityType;
 import com.gardensmc.gardensrpg.ability.types.Cast;
 import com.gardensmc.gardensrpg.bladebringers.BladeBringer;
 import com.gardensmc.gardensrpg.cooldown.AbilityCooldowns;
+import com.gardensmc.gardensrpg.util.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -19,10 +20,10 @@ public class CastActiveAbilityHandler {
     public void toggleAbility(Player player) {
         if (primedPlayers.contains(player.getUniqueId())) {
             primedPlayers.remove(player.getUniqueId());
-            player.sendMessage("Deprimed active ability");
+            ChatUtil.sendMessage(player, "Deprimed active ability");
         } else {
             primedPlayers.add(player.getUniqueId());
-            player.sendMessage("Primed active ability");
+            ChatUtil.sendMessage(player,"Primed active ability");
         }
     }
 
@@ -44,7 +45,6 @@ public class CastActiveAbilityHandler {
                     }
                 }
             });
-
         }
     }
 }
