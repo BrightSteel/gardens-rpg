@@ -1,6 +1,7 @@
 package com.gardensmc.gardensrpg.scheduler;
 
 import com.gardensmc.gardensrpg.scheduler.schedules.AbilityCooldownsSchedule;
+import com.gardensmc.gardensrpg.scheduler.schedules.NecroMobDespawnSchedule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class ScheduleHandler {
 
     private void createSchedules() {
         new AbilityCooldownsSchedule();
+        new NecroMobDespawnSchedule();
 //        new SpawnActiveParticlesSchedule();
     }
 }

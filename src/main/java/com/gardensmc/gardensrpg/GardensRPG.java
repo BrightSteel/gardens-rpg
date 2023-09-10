@@ -8,6 +8,7 @@ import com.gardensmc.gardensrpg.cmd.CommandHandler;
 import com.gardensmc.gardensrpg.database.MySQLConnector;
 import com.gardensmc.gardensrpg.database.MySQLPreparation;
 import com.gardensmc.gardensrpg.database.table.Tables;
+import com.gardensmc.gardensrpg.listener.MobListener;
 import com.gardensmc.gardensrpg.listener.PassiveAbilitiesListener;
 import com.gardensmc.gardensrpg.listener.PlayerListener;
 import com.gardensmc.gardensrpg.placeholders.RPGExpansion;
@@ -46,6 +47,7 @@ public class GardensRPG extends JavaPlugin {
         // register listeners
         this.getServer().getPluginManager().registerEvents(new PassiveAbilitiesListener(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        this.getServer().getPluginManager().registerEvents(new MobListener(), this);
 
         // prepare MySQL Database
         mySQLPreparation.executePrepareStatements();

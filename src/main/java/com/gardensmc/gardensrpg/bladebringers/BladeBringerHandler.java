@@ -63,5 +63,14 @@ public class BladeBringerHandler {
                         Abilities.shockAbility,
                         Abilities.thunderStormAbility
                 ));
+        bladeBringersMap.put(
+                "Necromancer",
+                new BladeBringer(
+                        new AttributeGroup(18, 20, 20, 1.2, 1.8, 0.10),
+                        new AttributeGroup(25, 25, 25, 2.0, 2.6, 0.25),
+                        Abilities.shockAbility, // todo make passive
+                        Abilities.necroCallAbility
+                )
+        );
     }
 }

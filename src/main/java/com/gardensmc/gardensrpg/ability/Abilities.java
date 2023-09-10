@@ -7,4 +7,5 @@ public class Abilities {
     public static Ability evasiveManeuversAbility = new EvadeAbility();
     public static Ability thunderStormAbility = new ThunderStormAbility();
     public static Ability shockAbility = new ShockAbility();
+    public static Ability necroCallAbility = new NecroCallAbility();
 }
