@@ -4,6 +4,7 @@ import com.gardensmc.gardensrpg.ability.types.Ability;
 import com.gardensmc.gardensrpg.ability.types.EventCast;
 import com.gardensmc.gardensrpg.util.ChatUtil;
 import com.gardensmc.gardensrpg.util.ProbabilityUtil;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -27,9 +28,10 @@ public class ShockAbility extends Ability implements EventCast {
     public void cast(Event event, Player player) {
         if (ProbabilityUtil.roll(CAST_CHANCE)) {
             if (event instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
-                if (entityDamageByEntityEvent.getDamager() instanceof Player damager) {
+                if (entityDamageByEntityEvent.getDamager() instanceof LivingEntity damager) {
                     damager.damage(SHOCK_AMOUNT, player);
-                    damager.setVelocity(player.getLocation().getDirection().multiply(1));
+                    damager.setVelocity(damager.getLocation().getDirection().multiply(-1));
+                    damager.setFireTicks(damager.getFireTicks() + 30);
                 }
             }
         }
