@@ -5,12 +5,8 @@ import de.tr7zw.nbtapi.NBTEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityCombustByBlockEvent;
-import org.bukkit.event.entity.EntityCombustByEntityEvent;
-import org.bukkit.event.entity.EntityCombustEvent;
-import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.bukkit.event.entity.*;
 
-import java.util.UUID;
 
 public class MobListener implements Listener {
 

@@ -14,6 +14,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class BladeBringerHandler {
+
+    public static final String SWIFT_BLADE = "SwiftBlade";
+    public static final String STORM_CALLER = "StormCaller";
+    public static final String NECROMANCER = "Necromancer";
+    public static final String MAGE = "Mage";
+
     private final Map<String, BladeBringer> bladeBringersMap;
 
     public BladeBringerHandler() {
@@ -48,7 +54,7 @@ public class BladeBringerHandler {
 
     private void createBladeBringers() {
         bladeBringersMap.put(
-                "SwiftBlade",
+                SWIFT_BLADE,
                 new BladeBringer(
                         new AttributeGroup(16, 20, 20, 1.6, 2.6, 0.05),
                         new AttributeGroup(23, 25, 25, 2.4, 3.4, 0.20),
@@ -56,7 +62,7 @@ public class BladeBringerHandler {
                         Abilities.blinkStrikeAbility
                 ));
         bladeBringersMap.put(
-                "StormCaller",
+                STORM_CALLER,
                 new BladeBringer(
                         new AttributeGroup(18, 20, 20, 1.2, 1.8, 0.10),
                         new AttributeGroup(25, 25, 25, 2.0, 2.6, 0.25),
@@ -64,12 +70,21 @@ public class BladeBringerHandler {
                         Abilities.thunderStormAbility
                 ));
         bladeBringersMap.put(
-                "Necromancer",
+                NECROMANCER,
                 new BladeBringer(
                         new AttributeGroup(18, 20, 20, 1.2, 1.8, 0.10),
                         new AttributeGroup(25, 25, 25, 2.0, 2.6, 0.25),
-                        Abilities.shockAbility, // todo make passive
+                        Abilities.soulShroudAbility,
                         Abilities.necroCallAbility
+                )
+        );
+        bladeBringersMap.put(
+                MAGE,
+                new BladeBringer(
+                        new AttributeGroup(18, 20, 20, 1.2, 1.8, 0.10),
+                        new AttributeGroup(25, 25, 25, 2.0, 2.6, 0.25),
+                        Abilities.soulShroudAbility,
+                        Abilities.mageProjectileAbility
                 )
         );
     }

@@ -8,12 +8,20 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 
 public class PassiveAbilitiesListener implements Listener {
 
     @EventHandler
     public void onPlayerTakeAttackDamage(EntityDamageByEntityEvent e) {
         if (e.getEntity() instanceof Player player) {
+            castPassiveIfApplicable(player, e);
+        }
+    }
+
+    @EventHandler
+    public void onMobTargetPlayer(EntityTargetLivingEntityEvent e) {
+        if (e.getTarget() instanceof Player player) {
             castPassiveIfApplicable(player, e);
         }
     }

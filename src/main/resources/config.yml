@@ -4,3 +4,7 @@ database:
   databaseName: 'database'
   username: 'user'
   password: 'password'
+gui:
+  SwiftBlade:
+    normal: B
+    blank: B

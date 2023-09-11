@@ -14,6 +14,7 @@ import com.gardensmc.gardensrpg.listener.PlayerListener;
 import com.gardensmc.gardensrpg.placeholders.RPGExpansion;
 import com.gardensmc.gardensrpg.scheduler.ScheduleHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class GardensRPG extends JavaPlugin {
@@ -27,6 +28,9 @@ public class GardensRPG extends JavaPlugin {
     // caches
     public static PlayerEntryCache playerEntryCache;
     public static PlayerCooldownsCache playerCooldownsCache;
+
+    // config
+    public static ConfigurationSection config;
 
     @Override
     public void onEnable() {
@@ -57,8 +61,13 @@ public class GardensRPG extends JavaPlugin {
         if (Bukkit.getPluginManager().getPlugin("PlaceHolderAPI") != null) {
             new RPGExpansion().register();
         }
-
         // schedule tasks
         new ScheduleHandler().scheduleAll();
+        // load config from file
+        loadConfig();
+    }
+
+    public void loadConfig() {
+        config = plugin.getConfig();
     }
 }
