@@ -67,7 +67,8 @@ public class GardensRPG extends JavaPlugin {
         loadConfig();
     }
 
-    public void loadConfig() {
+    public static void loadConfig() {
+        plugin.reloadConfig();
         config = plugin.getConfig();
     }
 }

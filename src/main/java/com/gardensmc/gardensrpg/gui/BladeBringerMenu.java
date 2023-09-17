@@ -2,8 +2,11 @@ package com.gardensmc.gardensrpg.gui;
 
 import com.gardensmc.gardensrpg.GardensRPG;
 import com.gardensmc.gardensrpg.bladebringers.BladeBringer;
+import com.gardensmc.gardensrpg.util.ItemUtil;
 import de.themoep.inventorygui.GuiElementGroup;
 import de.themoep.inventorygui.StaticGuiElement;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -17,51 +20,76 @@ import java.util.logging.Level;
 
 public class BladeBringerMenu extends Menu {
 
-    private int currIndex = 0; // corresponds to index of currently viewed bladebringer
+    private int selected = 0; // corresponds to index of currently viewed bladebringer
+    private int page = 0;
     private final List<Map.Entry<String, BladeBringer>> bladeBringers;
     private final ConfigurationSection guiConfig = GardensRPG.config.getConfigurationSection("gui");
 
     private static final String[] layout = new String[] {
-            "aaaaaaaaa",
-            "aaaaaaaaa",
-            "aaaaaaaaa"
+            "         ",
+            "         ",
+            "         ",
+            "         ",
+            "baaaaaaan",
+            "    d    "
     };
 
     public BladeBringerMenu(Player viewer) {
         super(layout, "&f", viewer);
         this.bladeBringers = GardensRPG.bladeBringerHandler.getBladeBringers().stream().toList();
-        setTitle();
+        initElements();
     }
 
     @Override
-    protected void initializeElements() {}
-
-    private void setTitle() {
-        int prevIndex = (currIndex != 0) ? currIndex - 1 : bladeBringers.size() - 1;
-        int nextIndex = (currIndex != bladeBringers.size() - 1) ? currIndex + 1 : 0;
-
-        String prevImage = getGuiImage(
-                bladeBringers.get(prevIndex).getKey(),
-                "blank"
-        );
-        String nextImage = getGuiImage(
-                bladeBringers.get(nextIndex).getKey(),
-                "blank"
-        );
-        String currImage = getGuiImage(
-                bladeBringers.get(currIndex).getKey(),
-                "normal"
-        );
-        viewer.getOpenInventory().setTitle(String.format("%s%s%s", prevImage, currImage, nextImage));
+    public void open() {
+        super.open();
+        setTitle();
     }
 
-    private String getGuiImage(String bladeBringer, String type) {
-        ConfigurationSection bladeBringerSection = guiConfig.getConfigurationSection(bladeBringer);
-        if (bladeBringerSection != null) {
-            return bladeBringerSection.getString(type);
-        } else {
-            return "";
+    private void initElements() {
+        GuiElementGroup grp = new GuiElementGroup('a');
+        int i = 0;
+        for (Map.Entry<String, BladeBringer> bb : bladeBringers) {
+            String bladebringer = bb.getKey();
+            String base64Head = getConfigValue(bladebringer, "head");
+            int finalI = i;
+            grp.addElement(new StaticGuiElement('a', ItemUtil.getHeadBase64("", base64Head), (c) -> updateSelected(finalI), bladebringer));
+            i++;
         }
+        gui.addElement(grp);
+
+        gui.addElement(new StaticGuiElement('d', ItemUtil.getBlankItem(), c -> onClickDone(), "Confirm"));
+    }
+
+    private boolean updateSelected(int i) {
+        selected = i;
+        setTitle();
+        return true;
+    }
+
+    private void setTitle() {
+        String bladebringer = bladeBringers.get(selected).getKey();
+        String currImage = getConfigValue(bladebringer, "image");
+        String mainTitle = guiConfig.getString("title");
+        viewer.getOpenInventory().setTitle(ChatColor.translateAlternateColorCodes('&', mainTitle + currImage));
+    }
+
+    private String getConfigValue(String bladebringer, String item) {
+        ConfigurationSection section = guiConfig.getConfigurationSection(bladebringer);
+        if (section != null) {
+            String value = section.getString(item);
+            if (value != null) {
+                return value;
+            }
+        }
+        return "";
+    }
+
+    private boolean onClickDone() {
+        if (selectBladeBringer(bladeBringers.get(selected).getKey())) {
+            gui.close();
+        }
+        return true;
     }
 
     private boolean selectBladeBringer(String bladeBringerName) {
@@ -69,6 +97,7 @@ public class BladeBringerMenu extends Menu {
             boolean success = GardensRPG.bladeBringerHandler.setBladeBringer(viewer, bladeBringerName);
             if (success) {
                 viewer.sendMessage("Selected " + bladeBringerName + "!");
+
             } else {
                 viewer.sendMessage("An internal error occurred, failed to select " + bladeBringerName);
             }
