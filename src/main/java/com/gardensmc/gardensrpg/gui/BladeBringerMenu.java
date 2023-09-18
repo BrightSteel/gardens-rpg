@@ -5,17 +5,12 @@ import com.gardensmc.gardensrpg.bladebringers.BladeBringer;
 import com.gardensmc.gardensrpg.util.ItemUtil;
 import de.themoep.inventorygui.GuiElementGroup;
 import de.themoep.inventorygui.StaticGuiElement;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 
 public class BladeBringerMenu extends Menu {
@@ -94,7 +89,7 @@ public class BladeBringerMenu extends Menu {
 
     private boolean selectBladeBringer(String bladeBringerName) {
         try {
-            boolean success = GardensRPG.bladeBringerHandler.setBladeBringer(viewer, bladeBringerName);
+            boolean success = GardensRPG.bladeBringerHandler.createBladeBringer(viewer, bladeBringerName);
             if (success) {
                 viewer.sendMessage("Selected " + bladeBringerName + "!");
 

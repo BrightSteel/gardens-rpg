@@ -3,6 +3,7 @@ package com.gardensmc.gardensrpg.listener;
 import com.gardensmc.gardensrpg.GardensRPG;
 import com.gardensmc.gardensrpg.ability.types.EventCast;
 import com.gardensmc.gardensrpg.bladebringers.BladeBringer;
+import com.gardensmc.gardensrpg.database.entry.PlayerBladeBringerEntry;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -27,14 +28,14 @@ public class PassiveAbilitiesListener implements Listener {
     }
 
     private void castPassiveIfApplicable(Player player, Event e) {
-        GardensRPG.playerEntryCache.get(player.getUniqueId()).thenAccept(playerEntry -> {
-            BladeBringer bladeBringer = GardensRPG.bladeBringerHandler
-                    .getBladeBringer(playerEntry.getBladeBringer());
+        PlayerBladeBringerEntry playerEntry = GardensRPG.playerEntryCache.getActiveBladeBringer(player.getUniqueId());
+        if (playerEntry != null) {
+            BladeBringer bladeBringer = GardensRPG.bladeBringerHandler.getBladeBringer(playerEntry.getBlade_bringer());
             if (bladeBringer.getPassiveAbility() instanceof EventCast eventCast) {
                 if (eventCast.getCastEvent().isInstance(e)) {
                     eventCast.cast(e, player);
                 }
             }
-        });
+        }
     }
 }

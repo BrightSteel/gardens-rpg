@@ -2,8 +2,8 @@ package com.gardensmc.gardensrpg.bladebringers;
 
 import com.gardensmc.gardensrpg.GardensRPG;
 import com.gardensmc.gardensrpg.ability.Abilities;
-import com.gardensmc.gardensrpg.attribute.AttributeGroup;
-import com.gardensmc.gardensrpg.database.entry.PlayerEntry;
+import com.gardensmc.gardensrpg.attribute.BladeAttributes;
+import com.gardensmc.gardensrpg.database.entry.PlayerBladeBringerEntry;
 import com.gardensmc.gardensrpg.database.table.Tables;
 import org.bukkit.entity.Player;
 
@@ -35,16 +35,17 @@ public class BladeBringerHandler {
         return bladeBringersMap.entrySet();
     }
 
-    public boolean setBladeBringer(Player player, String bladeBringerName) throws ExecutionException, InterruptedException {
+    // TODO if this is their first blade bringer, automatically set active to true in base attributes
+    public boolean createBladeBringer(Player player, String bladeBringerName) throws ExecutionException, InterruptedException {
         BladeBringer bladeBringer = bladeBringersMap.get(bladeBringerName);
         if (bladeBringer == null) {
             GardensRPG.plugin.getLogger().info("Failed to find blade bringer: " + bladeBringerName);
             return false;
         }
         boolean success = CompletableFuture.supplyAsync(
-                () -> Tables.playerTable.setOrCreatePlayerEntry(
+                () -> Tables.playerBladeBringerTable.createEntry(
                         player.getUniqueId().toString(),
-                        new PlayerEntry(bladeBringerName, bladeBringer.getBaseAttributes())
+                        new PlayerBladeBringerEntry(bladeBringerName, bladeBringer.getBaseAttributes())
                 )).get();
         if (success) {
             GardensRPG.playerEntryCache.remove(player.getUniqueId());
@@ -56,24 +57,24 @@ public class BladeBringerHandler {
         bladeBringersMap.put(
                 SWIFT_BLADE,
                 new BladeBringer(
-                        new AttributeGroup(16, 20, 20, 1.6, 2.6, 0.05),
-                        new AttributeGroup(23, 25, 25, 2.4, 3.4, 0.20),
+                        new BladeAttributes(16, 20, 20, 1.6, 2.6, 0.05),
+                        new BladeAttributes(23, 25, 25, 2.4, 3.4, 0.20),
                         Abilities.evasiveManeuversAbility,
                         Abilities.blinkStrikeAbility
                 ));
         bladeBringersMap.put(
                 STORM_CALLER,
                 new BladeBringer(
-                        new AttributeGroup(18, 20, 20, 1.2, 1.8, 0.10),
-                        new AttributeGroup(25, 25, 25, 2.0, 2.6, 0.25),
+                        new BladeAttributes(18, 20, 20, 1.2, 1.8, 0.10),
+                        new BladeAttributes(25, 25, 25, 2.0, 2.6, 0.25),
                         Abilities.shockAbility,
                         Abilities.thunderStormAbility
                 ));
         bladeBringersMap.put(
                 NECROMANCER,
                 new BladeBringer(
-                        new AttributeGroup(18, 20, 20, 1.2, 1.8, 0.10),
-                        new AttributeGroup(25, 25, 25, 2.0, 2.6, 0.25),
+                        new BladeAttributes(18, 20, 20, 1.2, 1.8, 0.10),
+                        new BladeAttributes(25, 25, 25, 2.0, 2.6, 0.25),
                         Abilities.soulShroudAbility,
                         Abilities.necroCallAbility
                 )
@@ -81,8 +82,8 @@ public class BladeBringerHandler {
         bladeBringersMap.put(
                 MAGE,
                 new BladeBringer(
-                        new AttributeGroup(18, 20, 20, 1.2, 1.8, 0.10),
-                        new AttributeGroup(25, 25, 25, 2.0, 2.6, 0.25),
+                        new BladeAttributes(18, 20, 20, 1.2, 1.8, 0.10),
+                        new BladeAttributes(25, 25, 25, 2.0, 2.6, 0.25),
                         Abilities.soulShroudAbility,
                         Abilities.mageProjectileAbility
                 )

@@ -1,13 +1,16 @@
 package com.gardensmc.gardensrpg.placeholders;
 
 import com.gardensmc.gardensrpg.GardensRPG;
-import com.gardensmc.gardensrpg.database.entry.PlayerEntry;
+import com.gardensmc.gardensrpg.database.entry.PlayerBladeBringerEntry;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
 
 public class RPGExpansion extends PlaceholderExpansion {
     @Override
@@ -34,14 +37,14 @@ public class RPGExpansion extends PlaceholderExpansion {
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
         if (player == null) return null;
 
-        if (params.equalsIgnoreCase("mana")) {
-            CompletableFuture<PlayerEntry> playerEntry = GardensRPG.playerEntryCache.get(player.getUniqueId());
-            try {
-                return String.valueOf(playerEntry.get().getMana());
-            } catch (Exception ex) {
-                ex.printStackTrace();
+        if (params.equalsIgnoreCase("essence")) {
+            PlayerBladeBringerEntry entry = GardensRPG.playerEntryCache.getActiveBladeBringer(player.getUniqueId());
+            if (entry != null) {
+                return String.valueOf(entry.getEssence());
+            } else {
+                return "0";
             }
-        } else if (params.equalsIgnoreCase("mana_bar")) {
+        } else if (params.equalsIgnoreCase("essence_bar")) {
             // TODO return mana bar based on configured image unicodes
         }
 

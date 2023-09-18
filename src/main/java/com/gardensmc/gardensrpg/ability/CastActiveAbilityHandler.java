@@ -6,14 +6,16 @@ import com.gardensmc.gardensrpg.ability.types.AbilityType;
 import com.gardensmc.gardensrpg.ability.types.Cast;
 import com.gardensmc.gardensrpg.bladebringers.BladeBringer;
 import com.gardensmc.gardensrpg.cooldown.AbilityCooldowns;
+import com.gardensmc.gardensrpg.database.entry.PlayerBladeBringerEntry;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class CastActiveAbilityHandler {
 
     public void castActive(Player player) {
-        GardensRPG.playerEntryCache.get(player.getUniqueId()).thenAccept(playerEntry -> {
-            BladeBringer bladeBringer = GardensRPG.bladeBringerHandler.getBladeBringer(playerEntry.getBladeBringer());
+        PlayerBladeBringerEntry playerEntry = GardensRPG.playerEntryCache.getActiveBladeBringer(player.getUniqueId());
+        if (playerEntry != null) {
+            BladeBringer bladeBringer = GardensRPG.bladeBringerHandler.getBladeBringer(playerEntry.getBlade_bringer());
             Ability activeAbility = bladeBringer.getActiveAbility();
             if (activeAbility instanceof Cast castAbility) {
                 AbilityCooldowns abilityCooldowns = GardensRPG.playerCooldownsCache.get(player.getUniqueId());
@@ -22,6 +24,6 @@ public class CastActiveAbilityHandler {
                     abilityCooldowns.restartCooldown(AbilityType.ACTIVE, activeAbility.getCoolDown());
                 }
             }
-        });
+        }
     }
 }
